@@ -1,12 +1,14 @@
 # Dependencies
 node_modules/
-package-lock.json
-yarn.lock
+# ⚠️ REMOVE package-lock.json from .gitignore - it should be committed
+# yarn.lock  # Keep if using Yarn
 
-# Environment variables
+# Environment variables - CRITICAL!
 .env
-# .env.local
-# .env.*.local
+.env.*
+!.env.example
+.env.local
+.env.*.local
 
 # Logs
 logs/
@@ -57,3 +59,9 @@ Thumbs.db
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Secrets and keys
+*.pem
+*.key
+*.cert
+secrets/
