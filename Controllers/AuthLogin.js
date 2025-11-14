@@ -23,10 +23,10 @@ module.exports.Login = async (req, res) => {
     const token = createSecretToken(user._id);
 
     res.cookie("token", token, {
-    httpOnly: true,
-    secure: false,          // ❌ change this for localhost (only use true in prod)
-    sameSite: "Lax",        // ✅ Lax works fine across localhost ports
-    path: "/",              // ✅ ensures it’s valid for all routes
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // true in production (HTTPS required)
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // None for cross-site in prod
+      path: "/",             // ✅ ensures it’s valid for all routes
 });
 
 

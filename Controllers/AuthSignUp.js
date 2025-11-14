@@ -16,10 +16,10 @@ module.exports.Signup = async (req,res,next) => {
         const token = createSecretToken(user._id);
 
         res.cookie("token", token, {
-        httpOnly: true,   // ✅ secure cookie (JS can't read it)
-        secure: false,    // ❌ false for localhost, ✅ true for production (HTTPS)
-        sameSite: "Lax",  // ✅ allows cross-port access for localhost
-        path: "/",        // ✅ available for all routes
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // true in production (HTTPS required)
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // None for cross-site in prod
+            path: "/",       // ✅ available for all routes
         });
 
 
@@ -31,5 +31,6 @@ module.exports.Signup = async (req,res,next) => {
 
     } catch(error) {
         console.error(error);
+        return res.status(500).json({ message: "Server error", success: false });
     }
 };

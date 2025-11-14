@@ -3,7 +3,6 @@ const User = require("../models/UserModel");
 
 module.exports.verifyUser = async (req, res) => {
   try {
-    console.log("✅ verifyUser route hit!"); 
 
     const token = req.cookies.token; // read from cookie
 
